@@ -1,0 +1,3 @@
+displayName = TestMod
+author = TwoPeople
+version = 0.1

@@ -25,7 +25,7 @@ namespace TestMod.Items
 			item.useStyle = 1;
 			item.knockBack = 3;
 			item.value = 100;
-			item.rare = 2;
+			item.rare = 1;
 			item.UseSound = SoundID.Item1;
 			item.autoReuse = true;
 			//item.scale = Main.rand.Next(1,3);
@@ -39,6 +39,11 @@ namespace TestMod.Items
 			recipe.AddTile(TileID.WorkBenches);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
+		}
+
+		public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
+		{
+			player.AddBuff(mod.BuffType("SlimeySpeed"), 320);
 		}
 
 		public override void MeleeEffects(Player player, Rectangle hitbox)

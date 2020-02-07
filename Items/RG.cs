@@ -6,13 +6,12 @@ using static Terraria.ModLoader.ModContent;
 
 namespace TestMod.Items
 {
-    public class TestGun : ModItem
+    public class RG : ModItem
     {
-        float startDamage;
 
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("RNG Gun!");
+            Tooltip.SetDefault("RG");
         }
 
         public override void SetDefaults()
@@ -33,7 +32,6 @@ namespace TestMod.Items
             item.shoot = 10; //idk why but all the guns in the vanilla source have this
             item.shootSpeed = 16f;
             item.useAmmo = AmmoID.Bullet;
-            startDamage = item.damage;
         }
 
         public override void AddRecipes()
@@ -52,8 +50,6 @@ namespace TestMod.Items
         // What if I wanted this gun to have a 38% chance not to consume ammo?
         public override bool ConsumeAmmo(Player player)
 		{
-            item.damage = startDamage;
-            item.damage *= Main.rand.Next(0.5f, 3f);
 			return Main.rand.NextFloat() >= .34f;
 		}
 

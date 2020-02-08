@@ -17,12 +17,12 @@ namespace TestMod.Items
 
         public override void SetDefaults()
         {
-            item.damage = 30;
+            item.damage = 60;
             item.ranged = true;
             item.width = 40;
             item.height = 20;
-            item.useTime = 50;
-            item.useAnimation = 50;
+            item.useTime = 60;
+            item.useAnimation = 60;
             item.useStyle = 5;
             item.noMelee = true; //so the item's animation doesn't do damage
             item.knockBack = 8;
@@ -31,18 +31,17 @@ namespace TestMod.Items
             item.UseSound = SoundID.Item11;
             item.autoReuse = true;
             item.shoot = 10; //idk why but all the guns in the vanilla source have this
-            item.shootSpeed = 26f;
+            item.shootSpeed = 32f;
             item.useAmmo = AmmoID.Bullet;
         }
 
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.HallowedBar, 20);
+            recipe.AddIngredient(ItemID.HallowedBar, 21);
             recipe.AddIngredient(ItemID.SoulofNight, 4);
             recipe.AddIngredient(ItemID.LuckyCoin, 1);
             recipe.AddTile(TileID.MythrilAnvil);
-            recipe.AddTile(TileID.WorkBenches);
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
@@ -54,12 +53,7 @@ namespace TestMod.Items
         // What if I wanted this gun to have a 38% chance not to consume ammo?
         public override bool ConsumeAmmo(Player player)
         {
-            return Main.rand.NextFloat() >= .20f;
-        }
-
-        public override void UpdateInventory(Player player)
-        {
-            base.UpdateInventory(player);
+            return Main.rand.NextFloat() >= 0.20f;
         }
 
         // What if I wanted it to work like Uzi, replacing regular bullets with High Velocity Bullets?

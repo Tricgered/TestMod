@@ -13,7 +13,6 @@ namespace TestMod.Items
 			DisplayName.SetDefault("GelSword"); // By default, capitalization in classnames will add spaces to the display name. You can customize the display name here by uncommenting this line.
 			Tooltip.SetDefault("Wow thats slimey.");
 		}
-
 		public override void SetDefaults()
 		{
 			item.damage = 8;

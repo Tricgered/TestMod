@@ -1,8 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Items"
+    "\\Buffs",
+    "\\Items",
+    "\\Projectiles"
   ],
-  "SelectedNode": "\\Items\\TestGun.cs",
+  "SelectedNode": "\\Projectiles\\GelSpearProjectile.cs",
   "PreviewInSolutionExplorer": false
 }

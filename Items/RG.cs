@@ -8,25 +8,24 @@ namespace TestMod.Items
 {
 	public class RG : ModItem
 	{
-        int startDamage;
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Lucky gun?");
-            Tooltip.SetDefault("Can shoot up to 8 bullets, 20% chance to not use ammo");
+            Tooltip.SetDefault("Shoots 0-8 bullets, 20% chance to not use ammo");
         }
 
         public override void SetDefaults()
         {
-            item.damage = 60;
+            item.damage = 40;
             item.ranged = true;
-            item.width = 40;
-            item.height = 20;
-            item.useTime = 60;
-            item.useAnimation = 60;
+            item.width = 64;
+            item.height = 42;
+            item.useTime = 50;
+            item.useAnimation = 50;
             item.useStyle = 5;
             item.noMelee = true; //so the item's animation doesn't do damage
             item.knockBack = 8;
-            item.value = 10000;
+            item.value = 300000;
             item.rare = 3;
             item.UseSound = SoundID.Item11;
             item.autoReuse = true;
@@ -35,10 +34,15 @@ namespace TestMod.Items
             item.useAmmo = AmmoID.Bullet;
         }
 
+        public override Vector2? HoldoutOffset()
+        {
+            return new Vector2(-8, -4);
+        }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.HallowedBar, 21);
+            recipe.AddIngredient(ItemID.HallowedBar, 28);
             recipe.AddIngredient(ItemID.SoulofNight, 4);
             recipe.AddIngredient(ItemID.LuckyCoin, 1);
             recipe.AddTile(TileID.MythrilAnvil);
@@ -71,7 +75,7 @@ namespace TestMod.Items
         // Shotgun style: Multiple Projectiles, Random spread 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-            int numberProjectiles = 1 + Main.rand.Next(8); // 4 or 5 shots
+            int numberProjectiles = 0 + Main.rand.Next(9); // 4 or 5 shots
             for (int i = 0; i < numberProjectiles; i++)
             {
                 Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(20)); // 30 degree spread.

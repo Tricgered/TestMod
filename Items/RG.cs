@@ -6,39 +6,42 @@ using static Terraria.ModLoader.ModContent;
 
 namespace TestMod.Items
 {
-    public class RG : ModItem
-    {
-
+	public class RG : ModItem
+	{
+        int startDamage;
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("RG");
+            DisplayName.SetDefault("Lucky gun?");
+            Tooltip.SetDefault("Can shoot up to 8 bullets, 20% chance to not use ammo");
         }
 
         public override void SetDefaults()
         {
-            item.damage = 30;
+            item.damage = 60;
             item.ranged = true;
             item.width = 40;
             item.height = 20;
-            item.useTime = 45;
-            item.useAnimation = 45;
+            item.useTime = 60;
+            item.useAnimation = 60;
             item.useStyle = 5;
             item.noMelee = true; //so the item's animation doesn't do damage
-            item.knockBack = 9;
+            item.knockBack = 8;
             item.value = 10000;
-            item.rare = 2;
+            item.rare = 3;
             item.UseSound = SoundID.Item11;
             item.autoReuse = true;
             item.shoot = 10; //idk why but all the guns in the vanilla source have this
-            item.shootSpeed = 16f;
+            item.shootSpeed = 32f;
             item.useAmmo = AmmoID.Bullet;
         }
 
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.DirtBlock, 1);
-            recipe.AddTile(TileID.WorkBenches);
+            recipe.AddIngredient(ItemID.HallowedBar, 21);
+            recipe.AddIngredient(ItemID.SoulofNight, 4);
+            recipe.AddIngredient(ItemID.LuckyCoin, 1);
+            recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
@@ -49,9 +52,9 @@ namespace TestMod.Items
 
         // What if I wanted this gun to have a 38% chance not to consume ammo?
         public override bool ConsumeAmmo(Player player)
-		{
-			return Main.rand.NextFloat() >= .34f;
-		}
+        {
+            return Main.rand.NextFloat() >= 0.20f;
+        }
 
         // What if I wanted it to work like Uzi, replacing regular bullets with High Velocity Bullets?
         // Uzi/Molten Fury style: Replace normal Bullets with Highvelocity
@@ -67,18 +70,18 @@ namespace TestMod.Items
         // What if I wanted it to shoot like a shotgun?
         // Shotgun style: Multiple Projectiles, Random spread 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-		{
-			int numberProjectiles = 4 + Main.rand.Next(2); // 4 or 5 shots
-			for (int i = 0; i < numberProjectiles; i++)
-			{
-				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(20)); // 30 degree spread.
-				// If you want to randomize the speed to stagger the projectiles
-				// float scale = 1f - (Main.rand.NextFloat() * .3f);
-				// perturbedSpeed = perturbedSpeed * scale; 
-				Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
-			}
-			return false; // return false because we don't want tmodloader to shoot projectile
-		}
+        {
+            int numberProjectiles = 1 + Main.rand.Next(8); // 4 or 5 shots
+            for (int i = 0; i < numberProjectiles; i++)
+            {
+                Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(20)); // 30 degree spread.
+                                                                                                                // If you want to randomize the speed to stagger the projectiles
+                                                                                                                // float scale = 1f - (Main.rand.NextFloat() * .3f);
+                                                                                                                // perturbedSpeed = perturbedSpeed * scale; 
+                Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
+            }
+            return false; // return false because we don't want tmodloader to shoot projectile
+        }
 
         // What if I wanted an inaccurate gun? (Chain Gun)
         // Inaccurate Gun style: Single Projectile, Random spread 
